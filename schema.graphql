@@ -1,0 +1,38 @@
+type Approval_ @entity {
+  id: ID!
+  count: BigInt!
+  owner: Bytes!
+  spender: Bytes!
+  value: BigInt! 
+}
+
+type DelegateChanged_ @entity {
+  id: ID!
+  count: BigInt!
+  delegator: Bytes!
+  fromDelegate: Bytes!
+  toDelegate: Bytes! 
+}
+
+type DelegateVotesChanged_ @entity {
+  id: ID!
+  count: BigInt!
+  delegate: Bytes!
+  previousBalance: BigInt!
+  newBalance: BigInt! 
+}
+
+type OwnershipTransferred_ @entity {
+  id: ID!
+  count: BigInt!
+  previousOwner: Bytes!
+  newOwner: Bytes! 
+}
+
+type Transfer_ @entity {
+  id: ID!
+  count: BigInt!
+  from: Bytes!
+  to: Bytes!
+  value: BigInt! 
+}

@@ -1,0 +1,71 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: TokenContract
+    network: mainnet
+    source:
+      address: "0xea319e87cf06203dae107dd8e5672175e3ee976c"
+      abi: TokenContract
+      startBlock: 11138405
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - DelegateChanged
+        - DelegateVotesChanged
+        - OwnershipTransferred
+        - Transfer
+      abis:
+        - name: TokenContract
+          file: ./abis/TokenContract.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        - event: DelegateChanged(indexed address,indexed address,indexed address)
+          handler: handleDelegateChanged
+        - event: DelegateVotesChanged(indexed address,uint256,uint256)
+          handler: handleDelegateVotesChanged
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/mapping.ts
+  - kind: ethereum/contract
+    name: Whirlpool
+    network: mainnet
+    source:
+      address: "0x999b1e6EDCb412b59ECF0C5e14c20948Ce81F40b"
+      abi: Whirlpool
+      startBlock: 11145134
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Claim
+        - EthRewardAdded
+        - OwnershipTransferred
+        - Stake
+        - SurfRewardAdded
+        - Withdraw
+      abis:
+        - name: Whirlpool
+          file: ./abis/Whirlpool.json
+      eventHandlers:
+        - event: Claim(indexed address,uint256)
+          handler: handleClaim
+        - event: EthRewardAdded(indexed address,uint256)
+          handler: handleEthRewardAdded
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: Stake(indexed address,uint256)
+          handler: handleStake
+        - event: SurfRewardAdded(indexed address,uint256)
+          handler: handleSurfRewardAdded
+        - event: Withdraw(indexed address,uint256)
+          handler: handleWithdraw
+      file: ./src/mapping.ts
